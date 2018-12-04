@@ -18,7 +18,9 @@ WEIGHT_DECAY = 0.000   # L2 weight decay
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-
+# initialization courtesy of https://github.com/cesare-montresor/drl-multi-agent/blob/master/MADDPG-agent-pre.ipynb
+# it probably isn't as good xavier initialization but I had been experimenting for a while trying to find
+# something that works
 def hidden_init(layer):
     fan_in = layer.weight.data.size()[0]
     lim = 1. / np.sqrt(fan_in)
@@ -66,6 +68,7 @@ class Critic(nn.Module):
         return self.fc4(F.relu(X))
 
 
+# agent heavily adapted from udacity ddpg implementation.
 class Agent():
     """Interacts with and learns from the environment."""
 
